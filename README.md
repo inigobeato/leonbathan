@@ -68,3 +68,10 @@ Alternatively, enable GitHub Pages in the repository's **Settings → Pages** an
 - Test admin login, project publishing, screenshot upload and download links.
 - Public buckets mean anyone with a file URL can access that file. Upload only files intended for public distribution.
 - Keep your Supabase secret/service-role key private.
+
+## Troubleshooting: admin changes do not appear publicly
+1. Confirm the project row exists in Supabase → Table Editor → `projects`.
+2. Confirm `is_published` is `true` for projects intended for the public viewer. Drafts are intentionally hidden.
+3. Confirm the signed-in admin's exact Auth UID exists in `public.admin_users`.
+4. If permissions are suspected, run `supabase-repair.sql` in Supabase → SQL Editor as the project owner. It refreshes the relevant RLS policies and grants without deleting project data.
+5. The updated app checks that an UPDATE or DELETE actually affected a row; it no longer reports success when RLS silently blocks a zero-row update.

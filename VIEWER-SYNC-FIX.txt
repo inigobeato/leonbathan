@@ -1,0 +1,30 @@
+LEONBATHAN — VIEWER SYNCHRONIZATION + EXPLORE MY WORK FIX
+
+WHAT CHANGED
+1. Explore my work now links directly to #projects, the heading above the application cards.
+2. Public visitors query only projects where is_published = true.
+3. Admin sessions continue to load all projects, including drafts, in the dashboard.
+4. Added a viewer status message and a manual Refresh Projects control.
+5. Viewer data refreshes when the visitor returns to the browser tab.
+6. Added versioned CSS/JS URLs to reduce stale browser-cache issues.
+
+IMPORTANT DATABASE CHECK
+This source-code update cannot repair Supabase records or policies remotely.
+In Supabase Dashboard > Table Editor > projects, confirm each intended public
+project has is_published = true and that its row exists.
+For public reads, the anon role needs SELECT permission and an RLS SELECT
+policy that allows rows with is_published = true.
+For uploaded screenshots/downloads, the relevant Supabase Storage buckets
+must be public if the website uses getPublicUrl().
+
+DEPLOY
+1. Extract this ZIP.
+2. Upload/replace the contents of the leonbathan-liab-update folder in the
+   ROOT of the GitHub repository (index.html must remain at repository root).
+3. Commit/push to the branch connected to Vercel.
+4. Wait for the Vercel deployment to complete.
+5. Open the site in an incognito/private tab and test the public project list.
+6. In Admin, save a test project with "Publish this project publicly" checked.
+   Confirm its row exists in Supabase and is_published is true.
+
+DO NOT put a Supabase service-role/secret key in frontend files.
